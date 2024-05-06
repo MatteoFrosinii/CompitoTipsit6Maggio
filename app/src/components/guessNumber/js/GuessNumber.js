@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import StartGameButton from '../../startGame/js/StartGameButton';
 
-export default function GuessNumber({gameData, gameStatus, startGame, setData}) {
+export default function GuessNumber({gameData, gameReset}) {
     const [number, setNumber] = useState("");
     const [gameState, setGameState] = useState(false);
     const [gameStateDescription, setGameStateDescription] = useState("");
+    const [loading, setLoading] = useState(false);
 
     function handleNumberChange(event) {
         setNumber(event.target.value);
@@ -12,6 +13,7 @@ export default function GuessNumber({gameData, gameStatus, startGame, setData}) 
     }
 
     async function tryGuess() {
+        setLoading(true)
         const response = await fetch(`http://localhost:8080/partita/${gameData.id}`,
         {
             method : "PUT",
@@ -32,6 +34,11 @@ export default function GuessNumber({gameData, gameStatus, startGame, setData}) 
             setGameStateDescription("Numero troppo piccolo")
             setGameState(false)
         }
+        setLoading(false)
+    }
+
+    function requestGame() {
+        gameReset(false)
     }
 
     return (
@@ -39,8 +46,7 @@ export default function GuessNumber({gameData, gameStatus, startGame, setData}) 
             {
                 gameState ? 
                 <div>
-                    <StartGameButton gameStatus={gameStatus} startGame={startGame} setData={setData} />
-                    <br />
+                    <button onClick={requestGame}> torna alla home </button>    
                 </div>
                 :
                 <div>
@@ -50,6 +56,12 @@ export default function GuessNumber({gameData, gameStatus, startGame, setData}) 
                     inserisci un numero tra 1 e 100 <br />
                     <input type="number" onChange={handleNumberChange} value={number} placeholder="numero"></input> <br />
                     <button onClick={tryGuess}> Indovina </button>    
+                    {
+                        loading ? 
+                        " in caricamento..."
+                        :
+                        ""
+                    }
                 </div>
             }
             {

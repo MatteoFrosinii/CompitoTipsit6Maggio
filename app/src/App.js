@@ -22,7 +22,7 @@ function App() {
     { gameStatus ? 
       (
         <>
-          <GuessNumber gameData={gameData} gameStatus={gameStatus} startGame={setGameStatus} setData={loadData}/>
+          <GuessNumber gameData={gameData} gameReset={setGameStatus}/>
         </>
       )
       :
