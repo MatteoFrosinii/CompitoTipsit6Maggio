@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StartGameButton from '../../startGame/js/StartGameButton';
 
-export default function GuessNumber({gameData, setGameStatus, loadData}) {
+export default function GuessNumber({gameData, gameStatus, startGame, setData}) {
     const [number, setNumber] = useState("");
     const [gameState, setGameState] = useState(false);
     const [gameStateDescription, setGameStateDescription] = useState("");
@@ -39,12 +39,11 @@ export default function GuessNumber({gameData, setGameStatus, loadData}) {
             {
                 gameState ? 
                 <div>
-                    <StartGameButton startGame={setGameStatus} setData={loadData} />
+                    <StartGameButton gameStatus={gameStatus} startGame={startGame} setData={setData} />
                     <br />
                 </div>
                 :
                 <div>
-                    <StartGameButton startGame={setGameStatus} setData={loadData} />
                     <h1> Indovina numero </h1>
                     id partita : {gameData.id} <br />
                     numero di tentativi {gameData.tentativi} <br />

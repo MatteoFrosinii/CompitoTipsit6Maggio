@@ -1,7 +1,7 @@
-export default function StartGameButton({startGame, setData}) {
+export default function StartGameButton({gameStatus, startGame, setData}) {
 
     function requestGame() {
-        startGame(true)
+        gameStatus ? startGame(false) : startGame(true)
         setData()
     }    
 
