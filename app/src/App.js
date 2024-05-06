@@ -8,13 +8,13 @@ function App() {
   const [gameData, setGameData] = useState([]);
 
   async function loadData(params) {
-      const response = await fetch(`http://localhost:8080/partita`,
-      {
-        method : "POST",
-        headers : {'Content-Type' : 'application/json'}
-      })
-      const data = await response.json();
-      setGameData(data)
+    const response = await fetch(`http://localhost:8080/partita`,
+    {
+      method : "POST",
+      headers : {'Content-Type' : 'application/json'}
+    })
+    const data = await response.json();
+    setGameData(data)
   }
 
   return (
@@ -22,7 +22,7 @@ function App() {
     { gameStatus ? 
       (
         <>
-          <GuessNumber gameData={gameData} gameReset={setGameStatus}/>
+          <GuessNumber gameData={gameData} gameReset={setGameStatus} />
         </>
       )
       :
