@@ -4,21 +4,31 @@ import StartGameButton from './components/startGame/js/StartGameButton.js';
 import GuessNumber from './components/guessNumber/js/GuessNumber.js';
 
 function App() {
-  const [game, setGame] = useState([]);
   const [gameStatus, setGameStatus] = useState(false);
+  const [gameData, setGameData] = useState([]);
+
+  async function loadData(params) {
+      const response = await fetch(`http://localhost:8080/partita`,
+      {
+        method : "POST",
+        headers : {'Content-Type' : 'application/json'}
+      })
+      const data = await response.json();
+      setGameData(data)
+  }
 
   return (
     <>
     { gameStatus ? 
       (
         <>
-          <GuessNumber />
+          <GuessNumber gameData={gameData} startGame={setGameStatus} setData={loadData}/>
         </>
       )
       :
       ( 
         <div>
-          <StartGameButton startGame={setGameStatus} setData={} />
+          <StartGameButton startGame={setGameStatus} setData={loadData} />
         </div>
       )
     } 

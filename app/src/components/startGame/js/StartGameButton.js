@@ -1,11 +1,6 @@
 export default function StartGameButton({startGame, setData}) {
 
-    async function requestGame() {
-        const response = await fetch(`http://localhost:8080/partita`,
-        {
-            method : "POST",
-            headers : {'Content-Type' : 'application/json'}
-        })
+    function requestGame() {
         startGame(true)
         setData()
     }    
